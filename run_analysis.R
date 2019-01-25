@@ -57,10 +57,11 @@ all_data <- all_data %>%
         extract(col = "signal",into = "metric",regex = "(mean|std)",remove = FALSE)
 
 # fix variable names by removing mean and std description from signal names add factors
-all_data$variable = as.factor(str_replace_all(all_data$signal,c("-mean"="","-std"="")))
+all_data$signal = as.factor(str_replace_all(all_data$signal,c("-mean"="","-std"="")))
 all_data$activity = as.factor(all_data$activity)
 
-# put mean and std in separate columns, these being the measures of the various signals (using the terminology in the original README). 
+# put mean and std in separate columns, these being the measures of the various signals 
+# (using the terminology in the source README). 
 # This might be flattened out further by putting mean and std of the f (frequency) and t (time)
 # components - but this would depend on what further analysis is required.
 # I have retained a very 'narrow/tall' structure so treating the signals as observations (so a row each)
@@ -70,14 +71,14 @@ all_data$activity = as.factor(all_data$activity)
 all_data <- all_data %>%
         spread(metric,value)
 
-# summarise data - as requested and as averages of mean and std within subject,activity and variable...
+# summarise data - as requested and as averages of mean and std within subject,activity and signal...
 summary_data <- all_data %>%
-        group_by(variable,activity,subject_id) %>%
+        group_by(signal,activity,subject_id) %>%
         summarise(average_mean = mean(mean),average_std = mean(std))
 
-# write to file as csv - commented out as not specifcally requested
- write.txt(all_data,"all_data.csv")
- write.csv(summary_data,"summary_data.csv")
+# write to file as txt - commented out as not specifcally requested
+ write_tsv(all_data,"all_data.txt")
+ write_tsv(summary_data,"summary_data.txt")
 
 # clean up temp working data
 rm(x_test,x_train,y_test,y_train,activity_labels,feature_names,feature_names_index,features,subject_test,subject_train,

@@ -52,19 +52,20 @@ all_data <- all_data %>%
 
 # gather and tidy
 all_data <- all_data %>%
-        gather(key = variable, value = value,c(-subject_id,-activity,-date_time_id,-data_set)) %>%
-        mutate(variable = str_remove(variable,"[//(][//)]")) %>%
-        extract(col = "variable",into = "metric",regex = "(mean|std)",remove = FALSE)
+        gather(key = signal, value = value,c(-subject_id,-activity,-date_time_id,-data_set)) %>%
+        mutate(signal = str_remove(signal,"[//(][//)]")) %>%
+        extract(col = "signal",into = "metric",regex = "(mean|std)",remove = FALSE)
 
-# fix variable names by removing mean and std description from variable names add factors
-all_data$variable = as.factor(str_replace_all(all_data$variable,c("-mean"="","-std"="")))
+# fix variable names by removing mean and std description from signal names add factors
+all_data$variable = as.factor(str_replace_all(all_data$signal,c("-mean"="","-std"="")))
 all_data$activity = as.factor(all_data$activity)
 
-# put mean and std in separate columns, these being the measures of the various variables(or features). 
+# put mean and std in separate columns, these being the measures of the various signals (using the terminology in the original README). 
 # This might be flattened out further by putting mean and std of the f (frequency) and t (time)
-# components - but this would depend on what further analysis is required
-# I have retained a 'narrow' structure - both approaches would follow tidyverse principles depending on requirements
-# I used narrow approach as features are not exacty the same between f and t 
+# components - but this would depend on what further analysis is required.
+# I have retained a very 'narrow/tall' structure so treating the signals as observations (so a row each)
+# with mean and std being the recorded variables. Both approaches would seem to follow tidyverse principles depending on requirements
+# I used narrow approach for f and t as signals are not exacty the same between f and t, so would result in NAs in places
 # (ie if f/t removed from front of full feature name)
 all_data <- all_data %>%
         spread(metric,value)
@@ -75,8 +76,8 @@ summary_data <- all_data %>%
         summarise(average_mean = mean(mean),average_std = mean(std))
 
 # write to file as csv - commented out as not specifcally requested
-# write.csv(all_data,"all_data.csv")
-# write.csv(summary_data,"summary_data.csv")
+ write.txt(all_data,"all_data.csv")
+ write.csv(summary_data,"summary_data.csv")
 
 # clean up temp working data
 rm(x_test,x_train,y_test,y_train,activity_labels,feature_names,feature_names_index,features,subject_test,subject_train,

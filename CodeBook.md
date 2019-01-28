@@ -1,19 +1,18 @@
-R Markdown
-----------
+Introduction
+------------
 
-This is an R Markdown document which is used to automate production of a
-Codebook for the following course assignment:
+This is the CodeBook for the following course assignment:
 
 Coursera/ John Hopkins University - Data Getting and Cleaning Course -
 Wk4 Assignment.
 
-The code (‘Codebook.Rmd’, stored in this repo) runs the
-‘run\_analysis.R’ script then prepares an updated Codebook based on then
+The R Markdown script (‘CodeBook.Rmd’, stored in this repo) runs the
+‘run\_analysis.R’ script then prepares an updated CodeBook based on then
 current data and code (in run\_analysis.R script). It therefore does not
 need to be run unless changes are made to the source data or R code.
 
-The output document is stored in the repo as Codebook.pdf, and
-Codebook.html.
+The output document is stored in the repo as CodeBook.pdf, and
+CodeBook.html.
 
 This document is intended to satisfy Review Criteria 3 of the
 assignment. An Rmd file is beng used so as to automate the process for
@@ -51,7 +50,7 @@ The following code runs the analysis R script ‘run\_analysis.R’
     ## 
     ##     transpose
 
-‘All\_Data’ Dataframe Description
+‘all\_data’ Dataframe Description
 ---------------------------------
 
 This dataframe is the full ‘tidied’ version of the data.
@@ -187,17 +186,26 @@ For clarity, first 6 rows of data frame are as follows:
 
 The above tables clearly show that the ‘tidied’ data is structured in a
 ‘long/ narrow’ format. The rationale for this approach (as opposed to a
-potentially much wider structure) is as follows:
+potentially much wider structure) is explained in more detail in the
+README file for this repo.
+
+Transformations - run\_analysis.R
+---------------------------------
+
+The ‘run\_analysis.R’ script handles all data loading, processing and
+output, as described below:
+
+-   tidyverse is used for transformations
+-   data.table is used for data loads (fread)
 
 Column Specifications
 ---------------------
 
-Detailed information is contained in the CodeBook.md file.
-
 #### Subject\_id
 
 30 subjects were used in the original experiment. They are only
-identified by a number ranging from 1-30 for test and training data.
+identified by a number (integer) ranging from 1-30 for both test and
+training data, subsequently joined.
 
 #### Activity
 

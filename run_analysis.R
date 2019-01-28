@@ -60,6 +60,7 @@ all_data <- all_data %>%
 all_data$signal = as.factor(str_replace_all(all_data$signal,c("-mean"="","-std"="")))
 all_data$activity = as.factor(all_data$activity)
 
+
 # put mean and std in separate columns, these being the measures of the various signals 
 # (using the terminology in the source README). 
 # This might be flattened out further by putting mean and std of the f (frequency) and t (time)
@@ -81,7 +82,7 @@ summary_data <- all_data %>%
  write_tsv(summary_data,"summary_data.txt")
 
 # clean up temp working data
-rm(x_test,x_train,y_test,y_train,activity_labels,feature_names,feature_names_index,features,subject_test,subject_train,
-   test,train)
+# rm(x_test,x_train,y_test,y_train,activity_labels,feature_names,feature_names_index,features,subject_test,subject_train,
+#   test,train)
 
 

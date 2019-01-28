@@ -70,7 +70,7 @@ The above tables clearly show that the 'tidied' data is structured in a 'long/ n
 
 The 'run_analysis.R' script handles all data loading, processing and output, as described below:
 
-```{r load_packages }
+```{r load_packages, echo=TRUE}
 # load packages
 library(tidyverse)
 library(data.table)

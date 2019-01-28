@@ -173,6 +173,10 @@ Transformations - run\_analysis.R
 The ‘run\_analysis.R’ script handles all data loading, processing and
 output, as described below:
 
+    # load packages
+    library(tidyverse)
+    library(data.table)
+
 -   tidyverse is used for transformations
 -   data.table is used for data loads (fread)
 

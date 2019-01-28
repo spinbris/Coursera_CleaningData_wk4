@@ -316,7 +316,47 @@ $(document).ready(function () {
 </div>
 <div id="project-description" class="section level2">
 <h2>Project Description</h2>
-<p>The purpose of this assignment is to prepare tidy data from the provided data set which can then be used for further analysis. A summary set of data is also required.</p>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>The purpose of this assignment is to prepare tidy data from the provided data set which can then be used for further analysis. A summary set of data is also required. The stated purpose of the project is to demonstrate the student’s ability to work with, and clean a data set.</p>
+</div>
+<div id="review-criteria" class="section level3">
+<h3>Review Criteria</h3>
+<p>The following paragraphs address the stated Review Criteria, in terms of how they are intended to be addressed in this assignment submission</p>
+<div id="the-submitted-data-set-is-tidy" class="section level4">
+<h4>1. The submitted data set is tidy</h4>
+<p>It is perhaps a matter of interpretation as to what constitutes a ‘tidy’ data set in this instance. The rationale for my approach is detailed later in this document.</p>
+</div>
+<div id="the-github-repo-contains-the-required-scripts." class="section level4">
+<h4>2. The Github repo contains the required scripts.</h4>
+<p>All (three) scripts have been prepared in RStudio using RStudio Git and Github desktop functionlity to then store to my Github account, in this <a href="https://github.com/spinbris/Coursera_CleaningData_wk4">repository</a></p>
+<p>Scripts written are:</p>
+<ul>
+<li>‘run_analysis.R’ - does all data loading, cleaning and output.</li>
+<li>‘README.Rmd’ - queries data and prepares the README.md file (this document). PDF and HTML versions can also be run from the RStudio ‘Knit’ menu.</li>
+<li>‘Codebook.Rmd’ - similar to above, produces the Codebook.md file (as well as PDF and HTML versions) by running the ‘run_analysis.R’ script and then querying and assembling appropriate data (augmented by manual text input)</li>
+</ul>
+</div>
+<div id="github-contains-a-code-book-that-modifies-and-updates-the-available-codebooks-with-the-data-to-indicate-all-the-variables-and-summaries-calculated-along-with-units-and-any-other-relevant-information." class="section level4">
+<h4>3. GitHub contains a code book that modifies and updates the available codebooks with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information.</h4>
+<p>As mentioned in previous section the github repository for this assignment contains Codebook in md, html and pdf versions as well as the ‘Codebook.Rmd’ script which produces and updates them.</p>
+</div>
+<div id="the-readme-that-explains-the-analysis-files-is-clear-and-understandable." class="section level4">
+<h4>4. The README that explains the analysis files is clear and understandable.</h4>
+<p>The assignment documentation further states the following in reltion to the README.md file:</p>
+<p><em>“You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.”</em></p>
+<p>This README document is intended to meet this requirement. As mentioned the ‘README.Rmd’ script which produces/updates this document is also available in the assignment repository.</p>
+</div>
+<div id="the-work-submitted-for-this-project-is-the-work-of-the-student-who-submitted-it." class="section level4">
+<h4>5. The work submitted for this project is the work of the student who submitted it.</h4>
+<p>This work is solely my responsibility, supported by much reading of</p>
+<ul>
+<li>Course notes</li>
+<li>Week 4 discussion forum (notably “Getting and Cleaning Data”,David Hood 2015, <a href="https://thoughtfulbloke.wordpress.com/2015/09/09/getting-and-cleaning-the-assignment/">link</a>)</li>
+<li>Hadley Wickham’s article<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> on tidy data, mentioned above</li>
+<li>Stack Overflow and other Google sources etc</li>
+</ul>
+<p>The number of commits might support this.</p>
 <p>Key output documents for this assignment comprise:</p>
 <ul>
 <li>‘run_analysis.R’ - the R script which reads data and then formats and tidies data.</li>
@@ -329,7 +369,152 @@ $(document).ready(function () {
 <li>‘Codebook.pdf’ - pdf version</li>
 </ul></li>
 </ul>
-<p>The raw data, R code, output data and exlanatory README and Codebook files are all provided on this Github repo.</p>
+<p>The above are all provided on this Github repo. The original data sources are also saved on repo.</p>
+</div>
+</div>
+<div id="r-code-prerequisites" class="section level3">
+<h3>R Code Prerequisites</h3>
+<p>Two R packages are required to run the ’run_analysis.R script:</p>
+<ul>
+<li>tidyverse - obviously actually quite a few separate packages will load.</li>
+<li>Data.table - the ‘fread’ function is used for file reading preference and to allow selective column loads.</li>
+</ul>
+<p>In addition, the CodeBook.Rmd and READMe.Rmd scripts use knitR package.</p>
+</div>
+<div id="summary-output" class="section level3">
+<h3>Summary Output</h3>
+<div id="all_data-dataframe" class="section level4">
+<h4>All_data dataframe</h4>
+<p>For information, first 6 rows of ‘all_data’ dataframe are as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">subject_id</th>
+<th align="left">activity</th>
+<th align="right">date_time_id</th>
+<th align="left">data_set</th>
+<th align="left">signal</th>
+<th align="right">mean</th>
+<th align="right">std</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">LAYING</td>
+<td align="right">1</td>
+<td align="left">train</td>
+<td align="left">fBodyAcc-X</td>
+<td align="right">-0.9263140</td>
+<td align="right">-0.9103749</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">LAYING</td>
+<td align="right">1</td>
+<td align="left">train</td>
+<td align="left">fBodyAcc-Y</td>
+<td align="right">-0.8869485</td>
+<td align="right">-0.9056274</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">LAYING</td>
+<td align="right">1</td>
+<td align="left">train</td>
+<td align="left">fBodyAcc-Z</td>
+<td align="right">-0.9287921</td>
+<td align="right">-0.8810446</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">LAYING</td>
+<td align="right">1</td>
+<td align="left">train</td>
+<td align="left">fBodyAccJerk-X</td>
+<td align="right">-0.9491758</td>
+<td align="right">-0.9502229</td>
+</tr>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">LAYING</td>
+<td align="right">1</td>
+<td align="left">train</td>
+<td align="left">fBodyAccJerk-Y</td>
+<td align="right">-0.8980041</td>
+<td align="right">-0.9036754</td>
+</tr>
+<tr class="even">
+<td align="right">1</td>
+<td align="left">LAYING</td>
+<td align="right">1</td>
+<td align="left">train</td>
+<td align="left">fBodyAccJerk-Z</td>
+<td align="right">-0.9729599</td>
+<td align="right">-0.9824606</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="summary_data-dataframe" class="section level3">
+<h3>Summary_Data dataframe</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">signal</th>
+<th align="left">activity</th>
+<th align="right">subject_id</th>
+<th align="right">average_mean</th>
+<th align="right">average_std</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">fBodyAcc-X</td>
+<td align="left">LAYING</td>
+<td align="right">1</td>
+<td align="right">-0.9390991</td>
+<td align="right">-0.9244374</td>
+</tr>
+<tr class="even">
+<td align="left">fBodyAcc-X</td>
+<td align="left">LAYING</td>
+<td align="right">2</td>
+<td align="right">-0.9767251</td>
+<td align="right">-0.9732465</td>
+</tr>
+<tr class="odd">
+<td align="left">fBodyAcc-X</td>
+<td align="left">LAYING</td>
+<td align="right">3</td>
+<td align="right">-0.9806656</td>
+<td align="right">-0.9836911</td>
+</tr>
+<tr class="even">
+<td align="left">fBodyAcc-X</td>
+<td align="left">LAYING</td>
+<td align="right">4</td>
+<td align="right">-0.9588021</td>
+<td align="right">-0.9524649</td>
+</tr>
+<tr class="odd">
+<td align="left">fBodyAcc-X</td>
+<td align="left">LAYING</td>
+<td align="right">5</td>
+<td align="right">-0.9687417</td>
+<td align="right">-0.9649539</td>
+</tr>
+<tr class="even">
+<td align="left">fBodyAcc-X</td>
+<td align="left">LAYING</td>
+<td align="right">6</td>
+<td align="right">-0.9391143</td>
+<td align="right">-0.9324629</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="data-set-information" class="section level2">
 <h2>Data Set Information</h2>
@@ -337,18 +522,48 @@ $(document).ready(function () {
 <h3>Source</h3>
 <p>This assignment uses data collected from the accelerometers from the Samsung Galaxy S smartphone as part of an experiment which is explained in detail on the following web site <a href="http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones">(webLink)</a></p>
 <p>The data can be downloaded from the following site, although it is also stored in this repo. <a href="https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip">(webLink)</a></p>
+</div>
+<div id="overview-of-original-data" class="section level3">
+<h3>Overview of Original Data</h3>
+<p>The original data was produced from an experiment ‘Human Activity Recognition Using Smartphones Dataset’<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>An overview of the experiment as provided by the related README.txt (which is also contained in the repo for this assignment) is:</p>
+<p>“The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.”</p>
 <p>A detailed description of the data is contained in the Codebook, filed in this repo.</p>
+<p>A rationale for using the above as a ‘tidy’ structure for the assignment is detailed in the CodeBook</p>
 </div>
 </div>
-<div id="r-code-prerequisites" class="section level2">
-<h2>R Code Prerequisites</h2>
-<p>Two R packages are required to run the ’run_analysis.R script:</p>
+<div id="structure-of-analysis" class="section level2">
+<h2>Structure of analysis</h2>
+<div id="input-files" class="section level3">
+<h3>Input Files</h3>
+<p>Key data input files sourced from the original data source are as follows:</p>
 <ul>
-<li>tidyverse - obviously actually quite few separate packages will load.</li>
-<li>Data.table - the ‘fread’ function is used for file reading preference and to allow selective column loads.</li>
+<li>‘features.txt’ - List of all features.</li>
+<li>‘activity_labels.txt’ - Links the class labels with their activity name.</li>
+<li>‘train/X_train.txt’ - Training set.</li>
+<li>‘train/y_train.txt’ - Training labels.</li>
+<li>‘train/subject_train.txt’- subject_ids for each row of train set.</li>
+<li>‘test/X_test.txt’ - Test set.</li>
+<li>‘test/y_test.txt’ - Test labels.</li>
+<li>‘test/subject_test.txt’ - subject_ids for each row if test set.</li>
 </ul>
-<p>In addition, this CodeBook is produced using knitR and</p>
+<p>The other key files used to document the original experiment data sets are:</p>
+<ul>
+<li>‘README.md’ file - overview of experiment and related data files</li>
+<li>‘features_info.txt’ - Shows information about the variables used on the feature vector.</li>
+</ul>
 </div>
+<div id="structure-of" class="section level3">
+<h3>Structure of</h3>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Wickham H.(2014), “Tidy Data”, <em>The Journal of Statistical Software</em>, vol.59,2014<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012<a href="#fnref2" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
 
 

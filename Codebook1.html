@@ -335,12 +335,12 @@ $(document).ready(function () {
 <div id="run-run_analysis.r-code" class="section level2">
 <h2>Run run_analysis.R code</h2>
 <p>The following code runs the analysis R script ‘run_analysis.R’</p>
-<pre><code>## -- Attaching packages ------------------------------------------- tidyverse 1.2.1 --</code></pre>
+<pre><code>## -- Attaching packages --------------------------------------------------- tidyverse 1.2.1 --</code></pre>
 <pre><code>## v ggplot2 3.1.0     v purrr   0.2.5
 ## v tibble  1.4.2     v dplyr   0.7.6
 ## v tidyr   0.8.1     v stringr 1.3.1
 ## v readr   1.1.1     v forcats 0.3.0</code></pre>
-<pre><code>## -- Conflicts ---------------------------------------------- tidyverse_conflicts() --
+<pre><code>## -- Conflicts ------------------------------------------------------ tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre><code>## 
@@ -642,10 +642,62 @@ fBodyAccJerk-Z
 </tbody>
 </table>
 <p>The above tables clearly show that the ‘tidied’ data is structured in a ‘long/ narrow’ format. The rationale for this approach (as opposed to a potentially much wider structure) is as follows:</p>
+</div>
+<div id="column-specifications" class="section level2">
+<h2>Column Specifications</h2>
+<p>Detailed information is contained in the CodeBook.md file.</p>
+<div id="subject_id" class="section level4">
+<h4>Subject_id</h4>
+<p>30 subjects were used in the original experiment. They are only identified by a number ranging from 1-30 for test and training data.</p>
+</div>
+<div id="activity" class="section level4">
+<h4>Activity</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Activity
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+LAYING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SITTING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+STANDING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WALKING
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WALKING_DOWNSTAIRS
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+WALKING_UPSTAIRS
+</td>
+</tr>
+</tbody>
+</table>
 <p>Description of each column, and rationale for use is as follows:</p>
 <ul>
 <li>subject_id -</li>
 </ul>
+</div>
 </div>
 
 

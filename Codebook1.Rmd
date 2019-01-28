@@ -2,12 +2,15 @@
 title: "Codebook"
 author: "Stephen Parton"
 date: "26 January 2019"
-output: html_document
+output:
+  md_document: default
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 library(knitr)
-library(kableExtra)
+#library(kableExtra)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
@@ -42,9 +45,9 @@ Structure is summarised below:
 ```{r str, echo = FALSE}
 all_data %>%
         summary.default()  %>%
-        kable() %>%
-        kable_styling(full_width = F) %>%
-        column_spec(1, bold = T, border_right = T)
+        kable() 
+        #kable_styling(full_width = F) %>%
+        #column_spec(1, bold = T, border_right = T)
         
         
 
@@ -55,8 +58,8 @@ For clarity, first 6 rows of data frame are as follows:
 ```{r head, echo=FALSE}
 all_data %>%
         head()  %>%
-        kable() %>%
-        kable_styling(full_width = F)
+        kable() 
+        #kable_styling(full_width = F)
 
 
 ```
@@ -66,8 +69,20 @@ The above tables clearly show that the 'tidied' data is structured in a 'long/ n
  
 ## Column Specifications
 
-### Subject_id
+Detailed information is contained in the CodeBook.md file.
 
+
+#### Subject_id
+
+30 subjects were used in the original experiment. They are only identified by a number ranging from 1-30 for test and training data.
+
+#### Activity
+
+```{r activity, echo=FALSE}
+acts <- unique(all_data$activity)
+acts %>%
+        kable(col.names = c("Activity"))
+ 
 ```
 
 

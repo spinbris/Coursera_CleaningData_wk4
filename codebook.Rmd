@@ -68,18 +68,131 @@ The above tables clearly show that the 'tidied' data is structured in a 'long/ n
 
 ## Transformations - run_analysis.R
 
-The 'run_analysis.R' script handles all data loading, processing and output, as described below:
+The 'run_analysis.R' script handles all data loading, processing and output, as described in the following paragraphs:
 
+
+#### Load Packages
 ```{r load_packages, echo=TRUE}
 # load packages
 library(tidyverse)
 library(data.table)
 
-
 ```
 
 * tidyverse is used for transformations
 * data.table is used for data loads (fread)
+
+#### Read Activity Labels and features
+```{r read1, echo=TRUE}
+# read data common to test and train
+activity_labels <- fread("UCI HAR Dataset/activity_labels.txt")
+features <- fread("UCI HAR Dataset/features.txt",stringsAsFactors = FALSE,select = 2 )
+
+# extract feature names and indices to allow selective load of test and training data
+feature_names_index <- grep("mean(\\()|std",features$V2,value = FALSE)
+feature_names <- grep("mean(\\()|std",features$V2,value = TRUE)
+
+```
+The 'feature_names_index' and 'feature_names' are extracted for just 'mean' and 'std' variables so they can then be used to limit the load of the dataset. This is done as the Assignment requires only mean and std data to be included in the final tidied dataset.
+
+
+#### Read Test and Training Datasets as well as labels
+```{r read2, echo=TRUE}
+# read test data - only those cols required
+subject_test <- fread("UCI HAR Dataset/test/subject_test.txt")
+x_test <-fread("UCI HAR Dataset/test/x_test.txt", select = feature_names_index)
+y_test <- fread("UCI HAR Dataset/test/y_test.txt")
+
+# read training data - only those cols required
+subject_train <- fread("UCI HAR Dataset/train/subject_train.txt")
+x_train <-fread("UCI HAR Dataset/train/x_train.txt", select = feature_names_index)
+y_train <- fread("UCI HAR Dataset/train/y_train.txt")
+
+```
+
+ * 'x_test' and 'x_train' text contain data for test and training data sets while y_test and y_train contain activity labels (ie a 1-6 number for each row in the test and train datasets respectively).
+ * 'subject_test' and 'subject_train' contain subject labels (a 1-30 number for each row in the test and train datasets respectively) 
+ 
+ 
+ The 'select' option in the fread function limits the columns selected to the mean and std measures as per previous step.
+ 
+#### Add column names to test and train datasets
+```{r col_names, echo=TRUE}
+# add colnames
+names(x_test) <- feature_names
+names(x_train) <- feature_names
+
+# add test/train identifiers and x,y
+test <- cbind(subject_id = subject_test$V1, data_set = "test",
+              label_id = y_test$V1, x_test)
+train <- cbind(subject_id = subject_train$V1, data_set = "train",
+               label_id =y_train$V1, x_train)
+
+```
+
+An additional column has also been added to identify which data source row came from (test or train). This was not specified in Assignment requirements but helps to maintain an audit train back to source data, and does impede further analysis.
+
+#### Combine test and train datasets
+```{r combine, echo=TRUE}
+# combine train and test and reorder cols
+all_data <- rbind(test,train) %>%
+        inner_join(activity_labels, by=c("label_id" = "V1")) %>%
+        select(subject_id,activity = V2, everything()) %>%
+        select(-label_id)
+
+# add a proxy sequence for the date_time_id, within subject,data set type, activity
+#  - not specifically requested but does no harm and leaves an audit trail back to original data
+all_data <- all_data %>%
+        group_by(data_set,subject_id,activity) %>%
+        mutate(date_time_id = row_number())%>%
+        select(subject_id, activity ,date_time_id,everything()) %>%
+        ungroup()
+
+```
+
+The date/time identifier is also not specifically required but does also help with audit trail.
+
+Data is now in one 'all_data' dataset
+
+#### Gather data into Required Columns and Tidy Names
+```{r tidy, echo=TRUE}
+# gather and tidy
+all_data <- all_data %>%
+        gather(key = signal, value = value, c(-subject_id, -activity, -date_time_id, -data_set)) %>%
+        mutate(signal = str_remove(signal,"[//(][//)]")) %>%
+        extract(col = "signal",into = "metric",regex = "(mean|std)",remove = FALSE)
+
+# fix variable names by removing mean and std description from signal names add factors
+all_data$signal = as.factor(str_replace_all(all_data$signal,c("-mean"="","-std"="")))
+all_data$activity = as.factor(all_data$activity)
+
+# put mean and std in separate columns, these being the measures of the various signals
+all_data <- all_data %>%
+        spread(metric,value)
+
+```
+
+
+This step structures the data into the selected 'tidy' data structure, and removes reference to mean and std in the 'signal' descriptions column
+
+AS discussed in the 'Tidy' structure section:
+
+* The 'signals' have not been parsed further as the variables are considered to be the mean and standard deviation (std), while the observations are the signals. This structure then already meets 'tidy data' requirements (although a wider structure will also probably meet those requirements)
+* the signals are as defined. I am not a subject matter expert so have no reason to break the signals into their component parts,for example by extacting 'f' and 't' components into separate columns for the meand and std measures. Doing so, would also introduce NULL components, as 'f' and 't' signals are not identical.
+* the Summary Analysis required can be easily accomplished with the data in this structure, so there is no reason to complicate the code further. I may have reconsidered if I knew what any further analysis might be, so could perhaps judge if another structure is more appropriate. I do not have that information however.
+
+#### Prepare Summary Analysis and write output to file
+```{r summary, echo=TRUE}
+# summarise data - as requested and as averages of mean and std within subject,activity and signal...
+summary_data <- all_data %>%
+        group_by(signal,activity,subject_id) %>%
+        summarise(average_mean = mean(mean),average_std = mean(std))
+
+# write to file as txt 
+ write_tsv(all_data,"all_data.txt")
+ write_tsv(summary_data,"summary_data.txt")
+
+```
 
 
 ## Column Specifications

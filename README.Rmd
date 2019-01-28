@@ -1,0 +1,120 @@
+---
+output: md_document
+    
+  
+  #html_document: default
+  #pdf_document: default
+#always_allow_html: yes
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+#library(kableExtra)
+knitr::opts_chunk$set(echo = FALSE)
+source("run_analysis.R")
+```
+# Coursera - John Hopkins University
+## Getting and Cleaning Data - Week 4 Assignment
+
+## Project Description
+
+### Overview
+
+The purpose of this assignment is to prepare tidy data from the provided data set which can then be used for further analysis. A summary set of data is also required.
+
+Key output documents for this assignment comprise:
+
+  * 'run_analysis.R'   - the R script which reads data and then formats and tidies data.
+  * 'all_data.txt'     - output text file containing the 'tidied' data, not summarised.
+  * 'summary_data.txt' - output text file, summarised to show average data by subject, activity and signal.
+  * 'README.md         - this document, which describes project approach and rationale.
+  * 'Codebook.Rmd'      - RMarkdown file which generates and updates the codebooks, as below:
+    + 'Codebook.md'     - markdown version
+    + 'Codebook.pdf'    - pdf version
+  
+ 
+The above are all provided on this Github repo. The original data sources are also saved on repo.
+
+### R Code Prerequisites
+
+Two R packages are required to run the 'run_analysis.R script:
+
+  * tidyverse  - obviously actually quite a few separate packages will load.
+  * Data.table - the 'fread' function is used for file reading preference and to allow selective column loads.
+
+In addition, the CodeBook is produced using knitR and kableExtra packages (ie in 'Codebook.Rmd' script).
+
+### Summary Output
+
+#### All_data dataframe
+
+For information, first 6 rows of 'all_data' dataframe are as follows:
+
+```{r all_head, echo=FALSE}
+all_data %>%
+        head()  %>%
+        kable(format = 'markdown') 
+
+
+```
+### Summary_Data dataframe
+ 
+
+```{r summ_head, echo=FALSE}
+summary_data %>%
+        head()  %>%
+        kable(format = 'markdown') 
+
+
+```
+
+
+## Data Set Information
+
+### Source
+
+This assignment uses data collected from the accelerometers from the Samsung Galaxy S smartphone as part of an experiment which is explained in detail on the following web site [(webLink)](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
+
+
+The data can be downloaded from the following site, although it is also stored in this repo. [(webLink)](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip)
+
+### Overview of Original Data
+
+The original data was produced from an experiment 'Human Activity Recognition Using Smartphones Dataset'[^1] 
+
+[^1]: Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012
+
+
+An overview of the experiment as provided by the related README.txt (which is also contained in the repo for this assignment) is:
+
+"The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data." 
+
+A detailed description of the data is contained in the Codebook, filed in this repo. 
+
+A rationale for using the above as a 'tidy' structure for the assignment is detailed in the CodeBook
+
+
+## Structure of analysis
+
+### Input Files
+
+Key data input files sourced from the original data source are as follows:
+
+ * 'features.txt'           - List of all features.
+ * 'activity_labels.txt'    - Links the class labels with their activity name.
+ * 'train/X_train.txt'      - Training set.
+ * 'train/y_train.txt'      - Training labels.
+ * 'train/subject_train.txt'- subject_ids for each row of train set.
+ * 'test/X_test.txt'        - Test set.
+ * 'test/y_test.txt'        - Test labels.
+ * 'test/subject_test.txt'  - subject_ids for each row if test set.
+ 
+
+The other key files used to document the original experiment data sets are:
+
+ * 'README.md' file      - overview of experiment and related data files
+ * 'features_info.txt'   - Shows information about the variables used on the feature vector. 
+ 
+### Structure of
+ 

@@ -32,7 +32,7 @@ This document is intended to satisfy Review Criteria 3 of the assignment. An Rmd
 
 The following code runs the analysis R script 'run_analysis.R'
 
-```{r run_analysis, echo = FALSE}
+```{r run_analysis, include = FALSE}
 source("run_analysis.R")
 ```
 
@@ -70,7 +70,7 @@ The above tables clearly show that the 'tidied' data is structured in a 'long/ n
 
 The 'run_analysis.R' script handles all data loading, processing and output, as described below:
 
-```{r load_packages, echo=FALSE}
+```{r load_packages }
 # load packages
 library(tidyverse)
 library(data.table)

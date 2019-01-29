@@ -82,8 +82,8 @@ summary_data <- all_data %>%
         summarise(average_mean = mean(mean),average_std_dev = mean(std_dev))
 
 # write to file as txt 
- write_tsv(all_data,"all_data.txt")
- write_tsv(summary_data,"summary_data.txt")
+ write.table(all_data,"all_data.txt",row.name = FALSE)
+ write.table(summary_data,"summary_data.txt",row.name = FALSE)
 
 # clean up temp working data
 # rm(x_test,x_train,y_test,y_train,activity_labels,feature_names,feature_names_index,features,subject_test,subject_train,

@@ -9,22 +9,22 @@ library(data.table)
 # download.file(url,"dataset.zip") 
 
 # read data common to test and train
-activity_labels <- fread("UCI HAR Dataset/activity_labels.txt")
-features <- fread("UCI HAR Dataset/features.txt",stringsAsFactors = FALSE,select = 2 )
+activity_labels <- fread("activity_labels.txt")
+features <- fread("features.txt",stringsAsFactors = FALSE,select = 2 )
 
 # extract feature names and indices to allow selective load of test and training data
 feature_names_index <- grep("mean(\\()|std",features$V2,value = FALSE)
 feature_names <- grep("mean(\\()|std",features$V2,value = TRUE)
 
 # read test data - only those cols required
-subject_test <- fread("UCI HAR Dataset/test/subject_test.txt")
-x_test <-fread("UCI HAR Dataset/test/x_test.txt", select = feature_names_index)
-y_test <- fread("UCI HAR Dataset/test/y_test.txt")
+subject_test <- fread("subject_test.txt")
+x_test <-fread("x_test.txt", select = feature_names_index)
+y_test <- fread("y_test.txt")
 
 # read training data - only those cols required
-subject_train <- fread("UCI HAR Dataset/train/subject_train.txt")
-x_train <-fread("UCI HAR Dataset/train/x_train.txt", select = feature_names_index)
-y_train <- fread("UCI HAR Dataset/train/y_train.txt")
+subject_train <- fread("subject_train.txt")
+x_train <-fread("x_train.txt", select = feature_names_index)
+y_train <- fread("y_train.txt")
 
 # add colnames
 names(x_test) <- feature_names
@@ -82,7 +82,7 @@ summary_data <- all_data %>%
         summarise(average_mean = mean(mean),average_std_dev = mean(std_dev))
 
 # write to file as txt 
- write.table(all_data,"all_data.txt",row.name = FALSE)
+ #write.table(all_data,"all_data.txt",row.name = FALSE)
  write.table(summary_data,"summary_data.txt",row.name = FALSE)
 
  

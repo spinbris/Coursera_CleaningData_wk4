@@ -281,6 +281,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -288,14 +291,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -325,11 +388,11 @@ $(document).ready(function () {
 <p>The following paragraphs address the stated Review Criteria, in terms of how they are intended to be addressed in this assignment submission</p>
 <div id="the-submitted-data-set-is-tidy" class="section level4">
 <h4>1. The submitted data set is tidy</h4>
-<p>It is perhaps a matter of interpretation as to what constitutes a ‘tidy’ data set in this instance. The rationale for my approach is detailed later in this document.</p>
+<p>It is perhaps a matter of interpretation as to what constitutes a ‘tidy’ data set in this instance. The rationale for my approach is detailed in the README file and later in this CodeBook.</p>
 </div>
 <div id="the-github-repo-contains-the-required-scripts." class="section level4">
 <h4>2. The Github repo contains the required scripts.</h4>
-<p>All (three) scripts have been prepared in RStudio using RStudio Git and Github desktop functionlity to then store to my Github account, in this <a href="https://github.com/spinbris/Coursera_CleaningData_wk4">repository</a></p>
+<p>All (three) scripts have been prepared in RStudio using RStudio Git and Github desktop functionality to then store to my Github account, in this <a href="https://github.com/spinbris/Coursera_CleaningData_wk4">repository</a></p>
 <p>Scripts written are:</p>
 <ul>
 <li>‘run_analysis.R’ - does all data loading, cleaning and output.</li>
@@ -346,45 +409,53 @@ $(document).ready(function () {
 <p>The assignment documentation further states the following in reltion to the README.md file:</p>
 <p><em>“You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.”</em></p>
 <p>This README document is intended to meet this requirement. As mentioned the ‘README.Rmd’ script which produces/updates this document is also available in the assignment repository.</p>
+<p>The CodeBook also contains detailed information on the R code, and transformations undertaken.</p>
 </div>
 <div id="the-work-submitted-for-this-project-is-the-work-of-the-student-who-submitted-it." class="section level4">
 <h4>5. The work submitted for this project is the work of the student who submitted it.</h4>
-<p>This work is solely my responsibility, supported by much reading of</p>
+<p>This work is solely my responsibility, supported by much reading of:</p>
 <ul>
 <li>Course notes</li>
 <li>Week 4 discussion forum (notably “Getting and Cleaning Data”,David Hood 2015, <a href="https://thoughtfulbloke.wordpress.com/2015/09/09/getting-and-cleaning-the-assignment/">link</a>)</li>
-<li>Hadley Wickham’s article<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> on tidy data, mentioned above</li>
+<li>Hadley Wickham’s article<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> on ‘Tidy Data’.</li>
 <li>Stack Overflow and other Google sources etc</li>
 </ul>
-<p>The number of commits might support this.</p>
+<p>The number of commits to my repository might support this.</p>
 <p>Key output documents for this assignment comprise:</p>
 <ul>
 <li>‘run_analysis.R’ - the R script which reads data and then formats and tidies data.</li>
 <li>‘all_data.txt’ - output text file containing the ‘tidied’ data, not summarised.</li>
 <li>‘summary_data.txt’ - output text file, summarised to show average data by subject, activity and signal.</li>
 <li>’README.md - this document, which describes project approach and rationale.</li>
-<li>‘Codebook.Rmd’ - RMarkdown file which generates and updates the codebooks, as below:
+<li>‘CodeBook.Rmd’ - RMarkdown file which generates and updates the codebooks, as below:
 <ul>
-<li>‘Codebook.md’ - markdown version</li>
-<li>‘Codebook.pdf’ - pdf version</li>
+<li>‘CodeBook.md’ - markdown version</li>
+<li>‘CodeBook.pdf’ - pdf version</li>
+<li>‘CodeBook.html’ - html version</li>
 </ul></li>
 </ul>
 <p>The above are all provided on this Github repo. The original data sources are also saved on repo.</p>
 </div>
 </div>
-<div id="r-code-prerequisites" class="section level3">
-<h3>R Code Prerequisites</h3>
-<p>Two R packages are required to run the ’run_analysis.R script:</p>
+<div id="running-the-analysis" class="section level3">
+<h3>Running the Analysis</h3>
+<div id="r-code-prerequisites" class="section level4">
+<h4>R Code Prerequisites</h4>
+<p>Two R packages are required to run the ‘run_analysis.R’ script (and I have not automated their installation if not already installed) :</p>
 <ul>
 <li>tidyverse - obviously actually quite a few separate packages will load.</li>
-<li>Data.table - the ‘fread’ function is used for file reading preference and to allow selective column loads.</li>
+<li>data.table - the ‘fread’ function is used for file reading preference and to allow selective column loads.</li>
 </ul>
 <p>In addition, the CodeBook.Rmd and READMe.Rmd scripts use knitR package.</p>
 </div>
-<div id="summary-output" class="section level3">
-<h3>Summary Output</h3>
-<div id="all_data-dataframe" class="section level4">
-<h4>All_data dataframe</h4>
+<div id="processing" class="section level4">
+<h4>Processing</h4>
+<p>All script to run the analysis is in ‘run_analysis.R’</p>
+<p>Data input files should be in the folder ‘UCI HAR Dataset’ in the Working Directory. As shown in the ‘Input Files’ section below there are test and train subfolders required therein.</p>
+<p>The two output files (all_data.txt and summary_data.txt) will be saved to the Working Directory.</p>
+</div>
+<div id="output---all_data-dataframe" class="section level4">
+<h4>Output - All_data dataframe</h4>
 <p>For information, first 6 rows of ‘all_data’ dataframe are as follows:</p>
 <table>
 <thead>
@@ -395,7 +466,7 @@ $(document).ready(function () {
 <th align="left">data_set</th>
 <th align="left">signal</th>
 <th align="right">mean</th>
-<th align="right">std</th>
+<th align="right">std_dev</th>
 </tr>
 </thead>
 <tbody>
@@ -456,9 +527,9 @@ $(document).ready(function () {
 </tbody>
 </table>
 </div>
-</div>
-<div id="summary_data-dataframe" class="section level3">
-<h3>Summary_Data dataframe</h3>
+<div id="output---summary_data-dataframe" class="section level4">
+<h4>Output - Summary_Data dataframe</h4>
+<p>Similarly, first 6 rows of summary data is as follows:</p>
 <table>
 <thead>
 <tr class="header">
@@ -466,7 +537,7 @@ $(document).ready(function () {
 <th align="left">activity</th>
 <th align="right">subject_id</th>
 <th align="right">average_mean</th>
-<th align="right">average_std</th>
+<th align="right">average_std_dev</th>
 </tr>
 </thead>
 <tbody>
@@ -516,6 +587,7 @@ $(document).ready(function () {
 </table>
 </div>
 </div>
+</div>
 <div id="data-set-information" class="section level2">
 <h2>Data Set Information</h2>
 <div id="source" class="section level3">
@@ -528,12 +600,8 @@ $(document).ready(function () {
 <p>The original data was produced from an experiment ‘Human Activity Recognition Using Smartphones Dataset’<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>An overview of the experiment as provided by the related README.txt (which is also contained in the repo for this assignment) is:</p>
 <p>“The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.”</p>
-<p>A detailed description of the data is contained in the Codebook, filed in this repo.</p>
-<p>A rationale for using the above as a ‘tidy’ structure for the assignment is detailed in the CodeBook</p>
+<p>A detailed description of the data is contained in the CodeBook, filed in this repo.</p>
 </div>
-</div>
-<div id="structure-of-analysis" class="section level2">
-<h2>Structure of analysis</h2>
 <div id="input-files" class="section level3">
 <h3>Input Files</h3>
 <p>Key data input files sourced from the original data source are as follows:</p>
@@ -547,21 +615,40 @@ $(document).ready(function () {
 <li>‘test/y_test.txt’ - Test labels.</li>
 <li>‘test/subject_test.txt’ - subject_ids for each row if test set.</li>
 </ul>
+<p>All these files are accessed by ‘run_analysis.R’ script.</p>
 <p>The other key files used to document the original experiment data sets are:</p>
 <ul>
 <li>‘README.md’ file - overview of experiment and related data files</li>
 <li>‘features_info.txt’ - Shows information about the variables used on the feature vector.</li>
 </ul>
+<p>Many other files are contained in the source data folders, but none were needed to complete this assignment, so are not referenced in this document or the CodeBook or any of the scripts.</p>
 </div>
-<div id="structure-of" class="section level3">
-<h3>Structure of</h3>
 </div>
+<div id="tidy-data---rationale-for-structure" class="section level2">
+<h2>Tidy Data - Rationale for Structure</h2>
+<p>The CodeBook for this assignment details the full ‘tidy data’ structure of the output data as contained in all_data.txt file.</p>
+<p>The structure as illustated previously with the head() function can be characterised perhaps as long/narrow.</p>
+<p>Reasons for this approach is as follows:</p>
+<ul>
+<li>The original experiment derived 33 signals for which they then calculated 17 measures across the 6 activities and 30 subjects. The 33 signals had the following components:
+<ul>
+<li>‘f’ (frequency) v ‘t’ (time) signals</li>
+<li>‘X’ v ‘Y’ v ‘Z’ directional signals</li>
+<li>‘Body’ v ‘Gravity’</li>
+<li>‘Acc’ v ‘Gyro’ etc</li>
+</ul></li>
+<li><p>In the source data provided in the experiment data documentation these were all referred to as ‘Signals’.</p></li>
+<li><p>The documentation then referred to 17 variables which were calculated for each Signal (by Activity and Subject). Refer ‘features_info.txt’ file in source data files.</p></li>
+<li><p>Without additional infomration seems to be a reasonable approach to use the ‘Signals’ as observations and the 17 variables (but limited to mean and std, as per assignment requirements) as variables.</p></li>
+<li><p>I am not a subject matter expert so have no reason to break the signals’ names into their component parts,for example by extacting ‘f’ and ‘t’ components into separate columns for the mean and std_dev measures. Doing so, would also introduce NULL components, as ‘f’ and ‘t’ signals are not identical.</p></li>
+<li><p>Also, the Summary Analysis required can be easily accomplished with the data in this structure, so there is no reason to complicate the code further. I may have reconsidered if I knew what any further analysis might be, so could perhaps judge if another structure is more appropriate. I do not have that information however.</p></li>
+</ul>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>Wickham H.(2014), “Tidy Data”, <em>The Journal of Statistical Software</em>, vol.59,2014<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>Wickham H.(2014), “Tidy Data”, <em>The Journal of Statistical Software</em>, vol.59.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ortiz. Human Activity Recognition on Smartphones using a Multiclass Hardware-Friendly Support Vector Machine. International Workshop of Ambient Assisted Living (IWAAL 2012). Vitoria-Gasteiz, Spain. Dec 2012<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>

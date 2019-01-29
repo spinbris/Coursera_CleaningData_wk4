@@ -36,7 +36,10 @@ test <- cbind(subject_id = subject_test$V1, data_set = "test",
 train <- cbind(subject_id = subject_train$V1, data_set = "train",
                label_id =y_train$V1, x_train)
 
-# combine train and test and reorder cols
+# combine train and test datasets, 
+# join to activity labels, 
+# reorder cols and 
+# drop 'label_id' column (now we have included activity labels instead)
 all_data <- rbind(test,train) %>%
         inner_join(activity_labels, by=c("label_id" = "V1")) %>%
         select(subject_id,activity = V2, everything()) %>%
@@ -70,14 +73,15 @@ all_data$activity = as.factor(all_data$activity)
 # I used narrow approach for f and t as signals are not exacty the same between f and t, so would result in NAs in places
 # (ie if f/t removed from front of full feature name)
 all_data <- all_data %>%
-        spread(metric,value)
+        spread(metric,value) %>%
+        rename(std_dev = std)
 
-# summarise data - as requested and as averages of mean and std within subject,activity and signal...
+# summarise data - as requested and as averages of mean and std_dev within subject,activity and signal...
 summary_data <- all_data %>%
         group_by(signal,activity,subject_id) %>%
-        summarise(average_mean = mean(mean),average_std = mean(std))
+        summarise(average_mean = mean(mean),average_std_dev = mean(std_dev))
 
-# write to file as txt - commented out as not specifcally requested
+# write to file as txt 
  write_tsv(all_data,"all_data.txt")
  write_tsv(summary_data,"summary_data.txt")
 

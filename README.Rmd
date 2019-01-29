@@ -1,8 +1,8 @@
 ---
 output: 
+  html_document: default
   md_document: default
   pdf_document: default
-  html_document: default
 ---
 
 
@@ -98,9 +98,9 @@ In addition, the CodeBook.Rmd and READMe.Rmd scripts use knitR package.
 
 All script to run the analysis is in 'run_analysis.R'
 
-Data input files should be in the folder 'UCI HAR Dataset' in the Working Directory. As shown in the 'Input Files' section below there are test and train subfolders required therein.
+Data input files should be in the  Working Directory. 
 
-The two output files (all_data.txt and summary_data.txt) will be saved to the Working Directory.
+One output files (summary_data.txt) will be saved to the Working Directory.
 
 
 #### Output - All_data dataframe

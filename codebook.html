@@ -537,8 +537,8 @@ library(data.table)</code></pre>
 <div id="read-activity-labels-and-features" class="section level4">
 <h4>2. Read Activity Labels and features</h4>
 <pre class="r"><code># read data common to test and train
-activity_labels &lt;- fread(&quot;UCI HAR Dataset/activity_labels.txt&quot;)
-features &lt;- fread(&quot;UCI HAR Dataset/features.txt&quot;,stringsAsFactors = FALSE,select = 2 )
+activity_labels &lt;- fread(&quot;activity_labels.txt&quot;)
+features &lt;- fread(&quot;features.txt&quot;,stringsAsFactors = FALSE,select = 2 )
 
 # extract feature names and indices to allow selective load of test and training data
 feature_names_index &lt;- grep(&quot;mean(\\()|std&quot;,features$V2,value = FALSE)
@@ -548,14 +548,14 @@ feature_names &lt;- grep(&quot;mean(\\()|std&quot;,features$V2,value = TRUE)</co
 <div id="read-test-and-training-datasets-as-well-as-labels" class="section level4">
 <h4>3. Read Test and Training Datasets as well as labels</h4>
 <pre class="r"><code># read test data - only those cols required
-subject_test &lt;- fread(&quot;UCI HAR Dataset/test/subject_test.txt&quot;)
-x_test &lt;-fread(&quot;UCI HAR Dataset/test/x_test.txt&quot;, select = feature_names_index)
-y_test &lt;- fread(&quot;UCI HAR Dataset/test/y_test.txt&quot;)
+subject_test &lt;- fread(&quot;subject_test.txt&quot;)
+x_test &lt;-fread(&quot;x_test.txt&quot;, select = feature_names_index)
+y_test &lt;- fread(&quot;y_test.txt&quot;)
 
 # read training data - only those cols required
-subject_train &lt;- fread(&quot;UCI HAR Dataset/train/subject_train.txt&quot;)
-x_train &lt;-fread(&quot;UCI HAR Dataset/train/x_train.txt&quot;, select = feature_names_index)
-y_train &lt;- fread(&quot;UCI HAR Dataset/train/y_train.txt&quot;)</code></pre>
+subject_train &lt;- fread(&quot;subject_train.txt&quot;)
+x_train &lt;-fread(&quot;x_train.txt&quot;, select = feature_names_index)
+y_train &lt;- fread(&quot;y_train.txt&quot;)</code></pre>
 <ul>
 <li>‘x_test’ and ‘x_train’ text contain data for test and training data sets while y_test and y_train contain activity labels (ie a 1-6 number for each row in the test and train datasets respectively).</li>
 <li>‘subject_test’ and ‘subject_train’ contain subject labels (a 1-30 number for each row in the test and train datasets respectively)</li>

@@ -25,7 +25,7 @@ calculated, along with units, and any other relevant information.”*
 This is also the reason I included multiple CodeBooks (ie the reference
 to ‘codebooks’, in plural).
 
-### Run run\_analysis.R code
+### Run ‘run\_analysis.R’ script
 
 The R script ‘run\_analysis.R’ runs the analysis, and is contained in
 the CookBook.Rmd file, although not in CookBook.md output file.

@@ -4,8 +4,8 @@ author: "Stephen Parton"
 date: "26 January 2019"
 output:
   html_document: default
-  md_document: default
   pdf_document: default
+  md_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -30,7 +30,7 @@ This document is intended to satisfy Review Criteria 3 of the assignment. A Rmd 
 
 This is also the reason I included multiple CodeBooks (ie the reference to 'codebooks', in plural).
 
-### Run run_analysis.R code
+### Run 'run_analysis.R' script
 
 The R script 'run_analysis.R' runs the analysis, and is contained in the CookBook.Rmd file, although not in CookBook.md output file.
 
